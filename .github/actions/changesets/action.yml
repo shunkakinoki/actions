@@ -40,6 +40,11 @@ runs:
       with:
         bun-version: ${{ inputs.bun-version }}
         install-dependencies: 'true'
+    - name: Fetch base branch
+      if: github.event_name == 'pull_request'
+      shell: bash
+      run: |
+        git fetch --no-tags --prune origin ${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
     - name: Run Changesets (official)
       uses: changesets/action@v1
       with:

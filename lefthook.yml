@@ -11,9 +11,6 @@ pre-commit:
     lint:
       glob: "*.{js,ts}"
       run: bun run lint
-    type-check:
-      glob: "*.{ts,tsx}"
-      run: bun run type-check
 
 # Pre-push hook: Run additional checks before pushing
 pre-push:

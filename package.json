@@ -5,6 +5,7 @@
     "packages/*"
   ],
   "scripts": {
+    "check": "bun run biome check .",
     "format": "bun run biome format --write .",
     "lint": "bun run biome lint --write .",
     "changeset": "changeset",

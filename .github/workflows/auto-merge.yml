@@ -15,6 +15,8 @@ jobs:
       contents: write
       issues: write
     steps:
+      - name: Checkout
+        uses: actions/checkout@v5
       - name: Auto Merge Dependabot PRs
         uses: ./.github/actions/auto-merge
         with:

@@ -14,6 +14,11 @@ description: |
   
   Alternatively, use secrets.GITHUB_TOKEN which has repository-scoped permissions but may have
   limitations with certain GraphQL operations in private repositories or organizations.
+  
+  Common Issues:
+  - "Resource not accessible by personal access token" → Add 'repo' scope to PAT_TOKEN
+  - "Bad credentials" → Regenerate PAT_TOKEN and update repository secret  
+  - GraphQL errors → Add 'read:org' scope for organization repositories
 author: shunkakinoki
 branding:
   icon: package
@@ -66,7 +71,9 @@ runs:
       shell: bash
       run: |
         echo "Validating GitHub token permissions..."
-        # Test basic API access
+        
+        # Test basic repository API access
+        echo "Testing REST API access..."
         response=$(curl -s -H "Authorization: token ${{ inputs.github-token }}" \
           -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/${{ github.repository }})
@@ -78,9 +85,26 @@ runs:
         elif echo "$response" | grep -q '"message": "Bad credentials"'; then
           echo "❌ Invalid token credentials. Please check PAT_TOKEN secret."
           exit 1
-        else
-          echo "✅ Token validation successful"
         fi
+        
+        # Test GraphQL API access (critical for changesets)
+        echo "Testing GraphQL API access..."
+        graphql_response=$(curl -s -H "Authorization: bearer ${{ inputs.github-token }}" \
+          -H "Content-Type: application/json" \
+          -X POST -d '{"query":"query { viewer { login } }"}' \
+          https://api.github.com/graphql)
+        
+        if echo "$graphql_response" | grep -q '"message": "Bad credentials"'; then
+          echo "❌ Token lacks GraphQL API access. Ensure PAT_TOKEN has 'repo' scope."
+          exit 1
+        elif echo "$graphql_response" | grep -q '"errors"'; then
+          echo "⚠️  GraphQL API returned errors - some changesets features may not work:"
+          echo "$graphql_response" | jq -r '.errors[].message' 2>/dev/null || echo "$graphql_response"
+        else
+          echo "✅ GraphQL API access confirmed"
+        fi
+        
+        echo "✅ Token validation completed successfully"
     - name: Fetch base branch
       if: github.event_name == 'pull_request'
       shell: bash

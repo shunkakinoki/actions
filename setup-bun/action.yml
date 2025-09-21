@@ -24,6 +24,10 @@ runs:
       uses: oven-sh/setup-bun@v2
       with:
         bun-version: ${{ inputs.bun-version }}
+    - name: Cache for Turbo
+      uses: rharkor/caching-for-turbo@v2.2.1
+      with:
+        cache-prefix: turbo-
     - name: Install dependencies
       if: inputs.install-dependencies == 'true'
       shell: bash
@@ -32,7 +36,3 @@ runs:
           cd "${{ inputs.working-directory }}"
         fi
         bun install
-    - name: Cache for Turbo
-      uses: rharkor/caching-for-turbo@v2.2.1
-      with:
-        cache-prefix: turbo-

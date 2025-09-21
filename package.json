@@ -2,10 +2,8 @@
   "name": "@shunkakinoki/actions",
   "private": false,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "clean": "turbo clean",
+    "format": "bunx @biomejs/biome format --write .",
+    "lint": "bunx @biomejs/biome lint --write .",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "changeset publish"

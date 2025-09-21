@@ -6,10 +6,10 @@ pre-commit:
   parallel: true
   commands:
     format:
-      glob: "*.{js,jsx,ts,tsx,json,css,md,yml,yaml}"
+      glob: "*.{js,ts,json,yml,yaml}"
       run: bun run format
     lint:
-      glob: "*.{js,jsx,ts,tsx}"
+      glob: "*.{js,ts}"
       run: bun run lint
     type-check:
       glob: "*.{ts,tsx}"
@@ -19,7 +19,6 @@ pre-commit:
 pre-push:
   parallel: true
   commands:
-    test:
-      run: bun run test
-    build:
-      run: bun run build
+    lint:
+      glob: "*.{js,ts,json,yml,yaml}"
+      run: bun run lint

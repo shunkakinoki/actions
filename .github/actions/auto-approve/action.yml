@@ -8,18 +8,6 @@ inputs:
   github-token:
     description: GitHub token for API access
     required: true
-  allowed-actors:
-    description: Comma-separated list of allowed actors (e.g., 'dependabot[bot],renovate[bot]')
-    required: false
-    default: 'dependabot[bot]'
-  required-labels:
-    description: Comma-separated list of required labels
-    required: false
-    default: 'automerge'
-  title-pattern:
-    description: Pattern to match in PR title
-    required: false
-    default: ''
 runs:
   using: composite
   steps:

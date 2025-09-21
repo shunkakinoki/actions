@@ -1,0 +1,22 @@
+{
+  "name": "@shunkakinoki/actions",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "check": "bun run biome check .",
+    "format": "bun run biome format --write .",
+    "lint": "bun run biome lint --write .",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "changeset publish"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.4",
+    "@changesets/cli": "^2.29.7",
+    "lefthook": "^1.13.1",
+    "turbo": "^2.5.6"
+  },
+  "packageManager": "bun@1.2.22"
+}

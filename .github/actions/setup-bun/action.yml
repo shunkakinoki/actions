@@ -1,5 +1,9 @@
 name: Setup Bun
 description: Setup Bun, install dependencies, and optionally run bun install with caching
+author: shunkakinoki
+branding:
+  icon: code
+  color: purple
 inputs:
   bun-version:
     description: Bun version to use (e.g., '1.0.0')
@@ -20,6 +24,10 @@ runs:
       uses: oven-sh/setup-bun@v2
       with:
         bun-version: ${{ inputs.bun-version }}
+    - name: Cache for Turbo
+      uses: rharkor/caching-for-turbo@v2.2.1
+      with:
+        cache-prefix: turbo-
     - name: Install dependencies
       if: inputs.install-dependencies == 'true'
       shell: bash
@@ -28,7 +36,3 @@ runs:
           cd "${{ inputs.working-directory }}"
         fi
         bun install
-    - name: Cache for Turbo
-      uses: rharkor/caching-for-turbo@v2.2.1
-      with:
-        cache-prefix: turbo-

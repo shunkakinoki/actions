@@ -1,0 +1,24 @@
+# Lefthook configuration for Open Composer project
+# This file configures Git hooks to run automatically
+
+# Pre-commit hook: Format and lint code before committing
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: "*.{js,ts,json,yml,yaml}"
+      run: bun run format
+    lint:
+      glob: "*.{js,ts}"
+      run: bun run lint
+    type-check:
+      glob: "*.{ts,tsx}"
+      run: bun run type-check
+
+# Pre-push hook: Run additional checks before pushing
+pre-push:
+  parallel: true
+  commands:
+    lint:
+      glob: "*.{js,ts,json,yml,yaml}"
+      run: bun run lint

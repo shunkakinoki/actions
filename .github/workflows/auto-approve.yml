@@ -18,7 +18,7 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - name: Auto Approve @actions/ Updates
+      - name: Auto Approve Dependabot PRs
         uses: ./.github/actions/auto-approve
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -24,6 +24,14 @@ inputs:
     description: Command to run for publishing
     required: false
     default: 'bun run release'
+  create-github-releases:
+    description: Create GitHub releases after publish (tags + releases)
+    required: false
+    default: 'true'
+  commit-mode:
+    description: Commit mode to push changes and tags (git-cli or github-api)
+    required: false
+    default: 'git-cli'
 runs:
   using: composite
   steps:
@@ -37,6 +45,8 @@ runs:
       with:
         version: ${{ inputs.version-command }}
         publish: ${{ inputs.publish-command }}
+        createGithubReleases: ${{ inputs.create-github-releases }}
+        commitMode: ${{ inputs.commit-mode }}
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
         NPM_TOKEN: ${{ inputs.npm-token }}

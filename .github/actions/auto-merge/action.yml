@@ -30,7 +30,7 @@ runs:
     - name: Auto Merge PR
       if: |
         github.event_name == 'pull_request' &&
-        contains(fromJSON(format('["{0}"]', replace(inputs.allowed-actors, ',', '","'))), github.event.pull_request.user.login) &&
+        contains(',' + inputs.allowed-actors + ',', ',' + github.event.pull_request.user.login + ',') &&
         (inputs.required-labels == '' || contains(join(github.event.pull_request.labels.*.name, ','), inputs.required-labels)) &&
         (inputs.title-pattern == '' || contains(github.event.pull_request.title, inputs.title-pattern))
       shell: bash

@@ -23,8 +23,8 @@ jobs:
       - name: Run Changesets
         uses: ./.github/actions/changesets
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          npm-token: ${{ secrets.NPM_TOKEN }}
+          github-token: ${{ secrets.PAT_TOKEN }}
+          publish-command: ''
           create-github-releases: 'true'
           commit-mode: 'github-api'
   changesets-pull-request:

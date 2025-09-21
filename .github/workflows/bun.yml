@@ -1,4 +1,4 @@
-name: Lint
+name: Bun
 on:
   push:
     branches:
@@ -6,7 +6,6 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.head_ref || github.sha }}
   cancel-in-progress: true

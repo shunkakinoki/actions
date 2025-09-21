@@ -45,6 +45,9 @@ runs:
       shell: bash
       run: |
         git fetch --no-tags --prune origin ${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
+    - name: Changesets status (dry run)
+      shell: bash
+      run: bunx changeset status
     - name: Run Changesets (official)
       uses: changesets/action@v1
       with:

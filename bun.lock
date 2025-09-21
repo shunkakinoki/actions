@@ -19,6 +19,10 @@
       "name": "@shunkakinoki/auto-merge",
       "version": "1.0.0",
     },
+    "packages/changesets": {
+      "name": "@shunkakinoki/changesets",
+      "version": "1.0.0",
+    },
     "packages/setup-bun": {
       "name": "@shunkakinoki/setup-bun",
       "version": "1.0.0",
@@ -98,6 +102,8 @@
     "@shunkakinoki/auto-approve": ["@shunkakinoki/auto-approve@workspace:packages/auto-approve"],
 
     "@shunkakinoki/auto-merge": ["@shunkakinoki/auto-merge@workspace:packages/auto-merge"],
+
+    "@shunkakinoki/changesets": ["@shunkakinoki/changesets@workspace:packages/changesets"],
 
     "@shunkakinoki/setup-bun": ["@shunkakinoki/setup-bun@workspace:packages/setup-bun"],
 

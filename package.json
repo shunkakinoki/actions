@@ -1,9 +1,12 @@
 {
   "name": "@shunkakinoki/actions",
-  "private": false,
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "format": "bunx @biomejs/biome format --write .",
-    "lint": "bunx @biomejs/biome lint --write .",
+    "format": "bun run biome format --write .",
+    "lint": "bun run biome lint --write .",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "changeset publish"

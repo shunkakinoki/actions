@@ -1,5 +1,5 @@
 name: Changesets
-description: Run Changesets commands with Bun and optional auth
+description: Run official Changesets action with Bun setup
 author: shunkakinoki
 branding:
   icon: package
@@ -12,14 +12,18 @@ inputs:
     description: Bun version to use
     required: false
     default: ''
-  working-directory:
-    description: Directory to run changesets in
+  npm-token:
+    description: NPM token for publishing
     required: false
     default: ''
-  command:
-    description: Changesets command to run (changeset | version | publish)
+  version-command:
+    description: Command to run for versioning
     required: false
-    default: 'changeset'
+    default: 'bun run version'
+  publish-command:
+    description: Command to run for publishing
+    required: false
+    default: 'bun run release'
 runs:
   using: composite
   steps:
@@ -28,33 +32,11 @@ runs:
       with:
         bun-version: ${{ inputs.bun-version }}
         install-dependencies: 'true'
-    - name: Set working directory
-      id: cw
-      shell: bash
-      run: |
-        if [ -n "${{ inputs.working-directory }}" ]; then
-          echo "dir=${{ inputs.working-directory }}" >> "$GITHUB_OUTPUT"
-        else
-          echo "dir=." >> "$GITHUB_OUTPUT"
-        fi
-    - name: Run Changesets
-      shell: bash
+    - name: Run Changesets (official)
+      uses: changesets/action@v1
+      with:
+        version: ${{ inputs.version-command }}
+        publish: ${{ inputs.publish-command }}
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
-      run: |
-        cd "${{ steps.cw.outputs.dir }}"
-        case "${{ inputs.command }}" in
-          changeset)
-            bun run changeset
-            ;;
-          version)
-            bun run version
-            ;;
-          publish)
-            bun run release
-            ;;
-          *)
-            echo "Unknown command: ${{ inputs.command }}" >&2
-            exit 1
-            ;;
-        esac
+        NPM_TOKEN: ${{ inputs.npm-token }}

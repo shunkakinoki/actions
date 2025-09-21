@@ -12,6 +12,7 @@ runs:
   using: composite
   steps:
     - name: Auto Merge PR
+      shell: bash
       run: |
         gh pr merge ${{ github.event.pull_request.number }} --auto --${{ inputs.merge-method }}
       env:

@@ -44,7 +44,6 @@ jobs:
         with:
           install-dependencies: 'true'
       - name: Changesets status (dry run)
-        shell: bash
         run: bunx changeset status
   changesets-check:
     if: always()

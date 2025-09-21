@@ -45,6 +45,10 @@ runs:
       shell: bash
       run: |
         git fetch --no-tags --prune origin ${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
+    - name: Changesets status (dry run)
+      if: github.event_name == 'pull_request'
+      shell: bash
+      run: bunx changeset status
     - name: Run Changesets (official)
       uses: changesets/action@v1
       with:

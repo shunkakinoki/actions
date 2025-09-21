@@ -1,5 +1,5 @@
 ---
-"setup-bun": minor
+"@shunkakinoki/setup-bun": minor
 ---
 
 Initial release of setup-bun action

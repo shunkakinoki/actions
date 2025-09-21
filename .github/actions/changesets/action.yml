@@ -1,0 +1,60 @@
+name: Changesets
+description: Run Changesets commands with Bun and optional auth
+author: shunkakinoki
+branding:
+  icon: package
+  color: blue
+inputs:
+  github-token:
+    description: GitHub token used by Changesets for creating PRs
+    required: true
+  bun-version:
+    description: Bun version to use
+    required: false
+    default: ''
+  working-directory:
+    description: Directory to run changesets in
+    required: false
+    default: ''
+  command:
+    description: Changesets command to run (changeset | version | publish)
+    required: false
+    default: 'changeset'
+runs:
+  using: composite
+  steps:
+    - name: Setup Bun
+      uses: ./.github/actions/setup-bun
+      with:
+        bun-version: ${{ inputs.bun-version }}
+        install-dependencies: 'true'
+    - name: Set working directory
+      id: cw
+      shell: bash
+      run: |
+        if [ -n "${{ inputs.working-directory }}" ]; then
+          echo "dir=${{ inputs.working-directory }}" >> "$GITHUB_OUTPUT"
+        else
+          echo "dir=." >> "$GITHUB_OUTPUT"
+        fi
+    - name: Run Changesets
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+      run: |
+        cd "${{ steps.cw.outputs.dir }}"
+        case "${{ inputs.command }}" in
+          changeset)
+            bun run changeset
+            ;;
+          version)
+            bun run version
+            ;;
+          publish)
+            bun run release
+            ;;
+          *)
+            echo "Unknown command: ${{ inputs.command }}" >&2
+            exit 1
+            ;;
+        esac

@@ -1,8 +1,5 @@
-name: Auto Approve
+name: Auto Merge
 on:
-  pull_request_target:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -10,25 +7,26 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.head_ref || github.sha }}
   cancel-in-progress: true
 jobs:
-  auto-approve-actions:
+  auto-merge-dependabot:
     runs-on: ubuntu-latest
     timeout-minutes: 3
-    if: github.event_name == 'pull_request_target'
     permissions:
-      contents: read
       pull-requests: write
+      contents: write
+      issues: write
     steps:
-      - name: Auto Approve @actions/ Updates
-        uses: ./.github/actions/auto-approve
+      - name: Auto Merge Dependabot PRs
+        uses: ./.github/actions/auto-merge
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PAT_ORGANIZATION_TOKEN }}
           allowed-actors: 'dependabot[bot]'
           required-labels: 'automerge'
+          merge-method: 'squash'
           title-pattern: 'actions'
-  auto-approve-check:
+  auto-merge-check:
     if: always()
     needs:
-      - auto-approve-actions
+      - auto-merge-dependabot
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
@@ -36,4 +34,4 @@ jobs:
         uses: re-actors/alls-green@release/v1
         with:
           jobs: ${{ toJSON(needs) }}
-          allowed-skips: auto-approve-actions
+          allowed-skips: auto-merge-dependabot

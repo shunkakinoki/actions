@@ -1,0 +1,40 @@
+name: Auto Merge
+description: Auto-merge pull requests based on configurable conditions
+author: shunkakinoki
+branding:
+  icon: git-merge
+  color: purple
+inputs:
+  github-token:
+    description: GitHub token with merge permissions (PAT recommended)
+    required: true
+  allowed-actors:
+    description: Comma-separated list of allowed actors (e.g., 'dependabot[bot],renovate[bot]')
+    required: false
+    default: 'dependabot[bot]'
+  required-labels:
+    description: Comma-separated list of required labels
+    required: false
+    default: 'automerge'
+  merge-method:
+    description: Merge method to use (merge, squash, rebase)
+    required: false
+    default: 'squash'
+  title-pattern:
+    description: Pattern to match in PR title
+    required: false
+    default: ''
+runs:
+  using: composite
+  steps:
+    - name: Auto Merge PR
+      if: |
+        github.event_name == 'pull_request' &&
+        contains(fromJSON(format('[{0}]', inputs.allowed-actors)), github.event.pull_request.user.login) &&
+        (inputs.required-labels == '' || contains(github.event.pull_request.labels.*.name, join(split(inputs.required-labels, ','), ','))) &&
+        (inputs.title-pattern == '' || contains(github.event.pull_request.title, inputs.title-pattern))
+      shell: bash
+      run: |
+        gh pr merge ${{ github.event.pull_request.number }} --auto --${{ inputs.merge-method }}
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}

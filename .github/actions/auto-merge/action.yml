@@ -31,7 +31,7 @@ runs:
       if: |
         github.event_name == 'pull_request' &&
         contains(fromJSON(format('[{0}]', inputs.allowed-actors)), github.event.pull_request.user.login) &&
-        (inputs.required-labels == '' || contains(github.event.pull_request.labels.*.name, join(split(inputs.required-labels, ','), ','))) &&
+        (inputs.required-labels == '' || contains(fromJSON(format('["{0}"]', replace(inputs.required-labels, ',', '","'))), github.event.pull_request.labels.*.name)) &&
         (inputs.title-pattern == '' || contains(github.event.pull_request.title, inputs.title-pattern))
       shell: bash
       run: |

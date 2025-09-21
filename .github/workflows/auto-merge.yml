@@ -18,13 +18,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
       - name: Auto Merge Dependabot PRs
+        if: |
+          github.actor == 'dependabot[bot]' ||
+          github.actor == 'dependabot' ||
+          github.actor == 'dependabot-preview[bot]' ||
+          github.actor == 'dependabot-preview'
         uses: ./.github/actions/auto-merge
         with:
-          github-token: ${{ secrets.PAT_ORGANIZATION_TOKEN }}
-          allowed-actors: 'dependabot[bot]'
-          required-labels: 'automerge'
-          merge-method: 'squash'
-          title-pattern: 'actions'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
   auto-merge-check:
     if: always()
     needs:

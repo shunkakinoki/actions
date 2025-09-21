@@ -21,12 +21,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
       - name: Auto Approve Dependabot PRs
+        if: |
+          github.actor == 'dependabot[bot]' ||
+          github.actor == 'dependabot' ||
+          github.actor == 'dependabot-preview[bot]' ||
+          github.actor == 'dependabot-preview' ||
+          github.actor == 'renovate[bot]' ||
+          github.actor == 'renovate' ||
+          github.actor == 'github-actions[bot]'
         uses: ./.github/actions/auto-approve
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          allowed-actors: 'dependabot[bot]'
-          required-labels: 'automerge'
-          title-pattern: 'actions'
   auto-approve-check:
     if: always()
     needs:

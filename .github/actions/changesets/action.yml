@@ -1,0 +1,57 @@
+name: Changesets
+description: Run Changesets commands with Bun and optional auth
+author: shunkakinoki
+branding:
+  icon: package
+  color: blue
+inputs:
+  github-token:
+    description: GitHub token used by Changesets for creating PRs
+    required: true
+  bun-version:
+    description: Bun version to use
+    required: false
+    default: ''
+  npm-token:
+    description: NPM token for publishing
+    required: false
+    default: ''
+  version-command:
+    description: Command to run for versioning
+    required: false
+    default: 'bun run version'
+  publish-command:
+    description: Command to run for publishing
+    required: false
+    default: 'bun run release'
+  create-github-releases:
+    description: Create GitHub releases after publish (tags + releases)
+    required: false
+    default: 'true'
+  commit-mode:
+    description: Commit mode to push changes and tags (git-cli or github-api)
+    required: false
+    default: 'git-cli'
+runs:
+  using: composite
+  steps:
+    - name: Setup Bun
+      uses: ./.github/actions/setup-bun
+      with:
+        bun-version: ${{ inputs.bun-version }}
+        install-dependencies: 'true'
+    - name: Fetch base branch
+      if: github.event_name == 'pull_request'
+      shell: bash
+      run: |
+        git fetch --no-tags --prune origin ${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
+    - name: Run Changesets (official)
+      uses: changesets/action@v1
+      with:
+        version: ${{ inputs.version-command }}
+        publish: ${{ inputs.publish-command }}
+        createGithubReleases: ${{ inputs.create-github-releases }}
+        commitMode: ${{ inputs.commit-mode }}
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        NPM_TOKEN: ${{ inputs.npm-token }}

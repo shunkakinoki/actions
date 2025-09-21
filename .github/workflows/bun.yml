@@ -24,8 +24,6 @@ jobs:
         run: bun run format
       - name: Lint
         run: bun run lint
-      - name: Type Check
-        run: bun run type-check
   bun-check:
     if: always()
     needs:

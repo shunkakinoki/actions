@@ -20,13 +20,20 @@ jobs:
       issues: write
       repository-projects: write
       deployments: write
+      packages: write
+      actions: write
+      checks: write
+      statuses: write
     steps:
       - name: Checkout
         uses: actions/checkout@v5
       - name: Run Changesets
         uses: ./.github/actions/changesets
+        # PAT_TOKEN provides enhanced permissions needed for GraphQL API access,
+        # GitHub releases creation, and package publishing. See PAT_TOKEN_SETUP.md
+        # for required scopes: repo, write:packages, read:org
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PAT_TOKEN }}
           publish-command: ''
           create-github-releases: 'true'
           commit-mode: 'github-api'

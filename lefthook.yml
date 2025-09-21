@@ -1,4 +1,4 @@
-# Lefthook configuration for Open Composer project
+# Lefthook configuration for @shunkakinoki/actions
 # This file configures Git hooks to run automatically
 
 # Pre-commit hook: Format and lint code before committing

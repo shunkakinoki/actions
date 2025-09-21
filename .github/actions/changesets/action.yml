@@ -1,39 +1,12 @@
 name: Changesets
-description: |
-  Run Changesets commands with Bun and optional auth
-  
-  This action wraps the official changesets/action with Bun setup and enhanced authentication support.
-  
-  PAT_TOKEN Setup Instructions:
-  1. Create a Personal Access Token with the following scopes:
-     - repo (full control of private repositories) 
-     - write:packages (for publishing to GitHub Packages)
-     - read:org (read access to organization for GraphQL queries)
-  2. Add the token as PAT_TOKEN secret in your repository settings
-  3. The token enables full GraphQL API access needed by changesets for complex operations
-  
-  Alternatively, use secrets.GITHUB_TOKEN which has repository-scoped permissions but may have
-  limitations with certain GraphQL operations in private repositories or organizations.
-  
-  Common Issues:
-  - "Resource not accessible by personal access token" → Add 'repo' scope to PAT_TOKEN
-  - "Bad credentials" → Regenerate PAT_TOKEN and update repository secret  
-  - GraphQL errors → Add 'read:org' scope for organization repositories
+description: Run Changesets commands with Bun and optional auth
 author: shunkakinoki
 branding:
   icon: package
   color: blue
 inputs:
   github-token:
-    description: |
-      GitHub token used by Changesets for creating PRs, releases, and accessing GraphQL API.
-      
-      Required permissions for PAT_TOKEN:
-      - repo (full control of private repositories)
-      - write:packages (for publishing to GitHub Packages)
-      - read:org (read access to organization data for GraphQL queries)
-      
-      Alternatively, use secrets.GITHUB_TOKEN which has appropriate scoped permissions.
+    description: GitHub token used by Changesets for creating PRs
     required: true
   bun-version:
     description: Bun version to use
@@ -67,44 +40,6 @@ runs:
       with:
         bun-version: ${{ inputs.bun-version }}
         install-dependencies: 'true'
-    - name: Validate GitHub Token Permissions
-      shell: bash
-      run: |
-        echo "Validating GitHub token permissions..."
-        
-        # Test basic repository API access
-        echo "Testing REST API access..."
-        response=$(curl -s -H "Authorization: token ${{ inputs.github-token }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/${{ github.repository }})
-        
-        if echo "$response" | grep -q '"message": "Not Found"'; then
-          echo "❌ Token does not have access to repository. Please check PAT_TOKEN permissions."
-          echo "Required scopes: repo, write:packages, read:org"
-          exit 1
-        elif echo "$response" | grep -q '"message": "Bad credentials"'; then
-          echo "❌ Invalid token credentials. Please check PAT_TOKEN secret."
-          exit 1
-        fi
-        
-        # Test GraphQL API access (critical for changesets)
-        echo "Testing GraphQL API access..."
-        graphql_response=$(curl -s -H "Authorization: bearer ${{ inputs.github-token }}" \
-          -H "Content-Type: application/json" \
-          -X POST -d '{"query":"query { viewer { login } }"}' \
-          https://api.github.com/graphql)
-        
-        if echo "$graphql_response" | grep -q '"message": "Bad credentials"'; then
-          echo "❌ Token lacks GraphQL API access. Ensure PAT_TOKEN has 'repo' scope."
-          exit 1
-        elif echo "$graphql_response" | grep -q '"errors"'; then
-          echo "⚠️  GraphQL API returned errors - some changesets features may not work:"
-          echo "$graphql_response" | jq -r '.errors[].message' 2>/dev/null || echo "$graphql_response"
-        else
-          echo "✅ GraphQL API access confirmed"
-        fi
-        
-        echo "✅ Token validation completed successfully"
     - name: Fetch base branch
       if: github.event_name == 'pull_request'
       shell: bash

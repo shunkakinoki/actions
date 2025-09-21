@@ -24,11 +24,6 @@ runs:
   using: composite
   steps:
     - name: Auto Approve PR
-      if: |
-        github.event_name == 'pull_request_target' &&
-        contains(format(',{0},', inputs.allowed-actors), format(',{0},', github.actor)) &&
-        (inputs.required-labels == '' || contains(format(',{0},', join(github.event.pull_request.labels.*.name, ',')), format(',{0},', inputs.required-labels))) &&
-        (inputs.title-pattern == '' || contains(github.event.pull_request.title, inputs.title-pattern))
       uses: hmarr/auto-approve-action@v4
       with:
         github-token: ${{ inputs.github-token }}

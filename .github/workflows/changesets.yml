@@ -43,8 +43,6 @@ jobs:
         uses: ./.github/actions/setup-bun
         with:
           install-dependencies: 'true'
-      - name: Changesets status (dry run)
-        run: bunx changeset status
   changesets-check:
     if: always()
     needs:

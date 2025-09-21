@@ -1,5 +1,5 @@
 name: Changesets
-description: Run official Changesets action with Bun setup
+description: Run Changesets commands with Bun and optional auth
 author: shunkakinoki
 branding:
   icon: package

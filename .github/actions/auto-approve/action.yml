@@ -27,7 +27,7 @@ runs:
       if: |
         github.event_name == 'pull_request_target' &&
         contains(fromJSON(format('[{0}]', inputs.allowed-actors)), github.actor) &&
-        (inputs.required-labels == '' || contains(github.event.pull_request.labels.*.name, join(split(inputs.required-labels, ','), ','))) &&
+        (inputs.required-labels == '' || contains(inputs.required-labels, github.event.pull_request.labels.*.name)) &&
         (inputs.title-pattern == '' || contains(github.event.pull_request.title, inputs.title-pattern))
       uses: hmarr/auto-approve-action@v4
       with:

@@ -1,5 +1,9 @@
 name: Setup Bun
 description: Setup Bun, install dependencies, and optionally run bun install with caching
+author: shunkakinoki
+branding:
+  icon: code
+  color: purple
 inputs:
   bun-version:
     description: Bun version to use (e.g., '1.0.0')

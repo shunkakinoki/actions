@@ -16,4 +16,4 @@ runs:
       run: |
         gh pr merge ${{ github.event.pull_request.number }} --auto
       env:
-        GITHUB_TOKEN: ${{ inputs.github-token }}
+        GH_TOKEN: ${{ inputs.github-token }}

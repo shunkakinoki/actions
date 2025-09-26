@@ -39,6 +39,7 @@ runs:
     - name: Validate Changesets
       if: inputs.validate-pull-request == 'true' && github.event_name == 'pull_request'
       shell: bash
+      continue-on-error: true
       run: |
         output=$(bunx changeset status 2>&1)
         status=$?

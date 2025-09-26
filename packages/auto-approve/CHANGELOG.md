@@ -1,5 +1,11 @@
 # @shunkakinoki/auto-approve
 
+## 1.1.1
+
+### Patch Changes
+
+- [#41](https://github.com/shunkakinoki/actions/pull/41) [`09e88e6`](https://github.com/shunkakinoki/actions/commit/09e88e640fba8b81607e27e766b1dbd9cd034d2d) Thanks [@shunkakinoki](https://github.com/shunkakinoki)! - Fixes documentation and versioning for public-places package.
+
 ## 1.1.0
 
 ### Minor Changes

@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
       - name: Setup Bun
-        uses: ./.github/actions/setup-bun
+        uses: ./actions/setup-bun
       - name: Check
         run: bun run check
       - name: Format

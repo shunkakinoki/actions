@@ -36,7 +36,7 @@ runs:
   using: composite
   steps:
     - name: Setup Bun
-      uses: ./.github/actions/setup-bun
+      uses: ./setup-bun
       with:
         bun-version: ${{ inputs.bun-version }}
         install-dependencies: 'true'

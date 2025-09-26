@@ -28,7 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
       - name: Run Changesets
-        uses: ./.github/actions/changesets
+        uses: ./actions/changesets
         with:
           github-token: ${{ secrets.PAT_TOKEN }}
           publish-command: ''
@@ -47,7 +47,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup Bun
-        uses: ./.github/actions/setup-bun
+        uses: ./actions/setup-bun
         with:
           install-dependencies: 'true'
   changesets-check:

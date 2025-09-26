@@ -8,10 +8,6 @@ inputs:
   github-token:
     description: GitHub token used by Changesets for creating PRs
     required: true
-  bun-version:
-    description: Bun version to use
-    required: false
-    default: ''
   npm-token:
     description: NPM token for publishing
     required: false
@@ -35,11 +31,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Setup Bun
-      uses: ./.github/actions/setup-bun
-      with:
-        bun-version: ${{ inputs.bun-version }}
-        install-dependencies: 'true'
     - name: Fetch base branch
       if: github.event_name == 'pull_request'
       shell: bash

@@ -51,6 +51,10 @@ jobs:
           fetch-depth: 0
       - name: Setup Bun
         uses: ./.github/actions/setup-bun
+      - name: Run Changesets
+        uses: ./.github/actions/changesets
+        with:
+          validate-pull-request: 'true'
   changesets-check:
     if: always()
     needs:

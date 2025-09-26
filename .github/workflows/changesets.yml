@@ -33,7 +33,7 @@ jobs:
           github-token: ${{ secrets.PAT_TOKEN }}
           publish-command: ''
           create-github-releases: 'true'
-          commit-mode: 'github-api'
+          commit-mode: 'git-cli'
   changesets-pull-request:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest

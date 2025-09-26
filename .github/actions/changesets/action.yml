@@ -35,7 +35,7 @@ runs:
       if: github.event_name == 'pull_request'
       shell: bash
       run: |
-        git fetch --no-tags --prune origin ${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
+        git fetch --no-tags origin ${{ github.base_ref }}
     - name: Validate Changesets
       if: inputs.validate-pull-request == 'true' && github.event_name == 'pull_request'
       shell: bash

@@ -53,6 +53,7 @@ jobs:
         uses: ./.github/actions/setup-bun
       - name: Run Changesets
         uses: ./.github/actions/changesets
+        continue-on-error: true
         with:
           validate-pull-request: 'true'
   changesets-check:

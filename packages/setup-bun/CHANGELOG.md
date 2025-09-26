@@ -1,5 +1,11 @@
 # @shunkakinoki/setup-bun
 
+## 1.2.0
+
+### Minor Changes
+
+- [#30](https://github.com/shunkakinoki/actions/pull/30) [`957c2f0`](https://github.com/shunkakinoki/actions/commit/957c2f0708bbc0cda621b66160a59486b1712e35) Thanks [@shunkakinoki](https://github.com/shunkakinoki)! - Bump all packages to align versioning
+
 ## 1.1.0
 
 ### Minor Changes

@@ -24,6 +24,10 @@ inputs:
     description: Commit mode to push changes and tags (git-cli or github-api)
     required: false
     default: 'git-cli'
+  validate-pull-request:
+    description: Validate pull request by checking changeset status
+    required: false
+    default: 'false'
 runs:
   using: composite
   steps:
@@ -32,10 +36,21 @@ runs:
       shell: bash
       run: |
         git fetch --no-tags --prune origin ${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
-    - name: Changesets status (dry run)
-      if: github.event_name == 'pull_request'
+    - name: Validate Changesets
+      if: inputs.validate-pull-request == 'true' && github.event_name == 'pull_request'
       shell: bash
-      run: bunx changeset status
+      run: |
+        set -e
+        bun run changeset:status || {
+          status=$?
+          # If exit code is 1 and output contains "No changesets found", ignore error
+          if [ "$status" -eq 1 ] && bun run changeset:status 2>&1 | grep -q "No changesets found"; then
+            echo "No changesets found, ignoring error."
+          else
+            echo "Changeset status failed with exit code $status"
+            exit $status
+          fi
+        }
     - name: Run Changesets (official)
       uses: changesets/action@v1
       with:

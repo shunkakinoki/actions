@@ -10,7 +10,10 @@
     "lint": "bun run biome lint --write .",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "publish": "changeset publish",
+    "changeset:publish": "changeset publish",
+    "changeset:status": "changeset status --verbose --since origin/main"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.4",

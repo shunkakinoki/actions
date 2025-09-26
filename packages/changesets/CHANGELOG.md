@@ -1,5 +1,11 @@
 # @shunkakinoki/changesets
 
+## 1.3.0
+
+### Minor Changes
+
+- Make packages public by removing private flag and adding publishConfig
+
 ## 1.2.0
 
 ### Minor Changes

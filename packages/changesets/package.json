@@ -1,6 +1,6 @@
 {
   "name": "@shunkakinoki/changesets",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "description": "GitHub Action to run Changesets commands with Bun and optional auth"
 }

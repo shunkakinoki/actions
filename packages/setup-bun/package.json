@@ -1,6 +1,6 @@
 {
   "name": "@shunkakinoki/setup-bun",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "description": "GitHub Action to setup Bun runtime with dependency installation and caching"
 }

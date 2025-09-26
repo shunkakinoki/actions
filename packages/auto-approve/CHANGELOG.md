@@ -1,5 +1,11 @@
 # @shunkakinoki/auto-approve
 
+## 1.1.0
+
+### Minor Changes
+
+- [#36](https://github.com/shunkakinoki/actions/pull/36) [`8de1c74`](https://github.com/shunkakinoki/actions/commit/8de1c7474267590aa2262d1a644b81bc09da839a) Thanks [@shunkakinoki](https://github.com/shunkakinoki)! - Bump all packages to align versioning
+
 ## 1.0.1
 
 ### Patch Changes

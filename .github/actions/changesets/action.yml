@@ -12,10 +12,6 @@ inputs:
     description: NPM token for publishing
     required: false
     default: ''
-  version-command:
-    description: Command to run for versioning
-    required: false
-    default: 'bun run version'
   publish-command:
     description: Command to run for publishing
     required: false
@@ -43,7 +39,6 @@ runs:
     - name: Run Changesets (official)
       uses: changesets/action@v1
       with:
-        version: ${{ inputs.version-command }}
         publish: ${{ inputs.publish-command }}
         createGithubReleases: ${{ inputs.create-github-releases }}
         commitMode: ${{ inputs.commit-mode }}

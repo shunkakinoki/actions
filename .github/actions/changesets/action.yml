@@ -43,7 +43,7 @@ runs:
         set -e
         output=$(bunx changeset status 2>&1)
         status=$?
-        if [ "$status" -eq 1 ] && echo "$output" | grep -q "No changesets found"; then
+        if echo "$output" | grep -q "No changesets found"; then
           echo "No changesets found, ignoring error."
         elif [ "$status" -ne 0 ]; then
           echo "Changeset status failed with exit code $status"

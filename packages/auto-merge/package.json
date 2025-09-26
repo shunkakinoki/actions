@@ -1,8 +1,6 @@
 {
   "name": "@shunkakinoki/auto-merge",
-  "version": "1.2.0",
-  "publishConfig": {
-    "access": "public"
-  },
+  "version": "1.1.0",
+  "private": true,
   "description": "Empty package for auto-merge GitHub Action"
 }

@@ -1,11 +1,5 @@
 # @shunkakinoki/auto-merge
 
-## 1.2.0
-
-### Minor Changes
-
-- Make packages public by removing private flag and adding publishConfig
-
 ## 1.1.0
 
 ### Minor Changes

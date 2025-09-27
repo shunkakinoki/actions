@@ -50,6 +50,7 @@ runs:
           exit $status
         fi
     - name: Export environment variables
+      shell: bash
       run: |
         echo "GITHUB_SHA: ${{ github.sha }}" >> $GITHUB_ENV
         echo "GITHUB_REF: ${{ github.ref }}" >> $GITHUB_ENV

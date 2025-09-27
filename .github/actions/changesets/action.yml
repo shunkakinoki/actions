@@ -44,7 +44,7 @@ runs:
       if: inputs.validate-pull-request == 'true' && github.event_name == 'pull_request'
       shell: bash
       run: |
-        output=$(bunx changeset status 2>&1)
+        output=$(bunx changeset status --verbose 2>&1)
         status=$?
         if echo "$output" | grep -q "No changesets found"; then
           echo "No changesets found, ignoring error."

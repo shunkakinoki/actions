@@ -16,6 +16,10 @@ inputs:
     description: Command to run for publishing
     required: false
     default: 'bun run release'
+  version-command:
+    description: Command to run for versioning
+    required: false
+    default: 'bun run version'
   create-github-releases:
     description: Create GitHub releases after publish (tags + releases)
     required: false
@@ -73,6 +77,7 @@ runs:
       uses: changesets/action@v1
       with:
         publish: ${{ inputs.publish-command }}
+        version: ${{ inputs.version-command }}
         createGithubReleases: ${{ inputs.create-github-releases }}
         commitMode: ${{ inputs.commit-mode }}
       env:

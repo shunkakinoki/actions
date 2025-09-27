@@ -71,3 +71,4 @@ runs:
         PUBLISH_PACKAGES: ${{ inputs.publish-packages }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
         NPM_TOKEN: ${{ inputs.npm-token }}
+        NPM_CONFIG_TOKEN: ${{ inputs.npm-token }}

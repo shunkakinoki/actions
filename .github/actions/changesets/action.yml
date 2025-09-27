@@ -28,10 +28,6 @@ inputs:
     description: Validate pull request by checking changeset status
     required: false
     default: 'false'
-  publish-packages:
-    description: Publish packages after changeset publish
-    required: false
-    default: 'true'
 runs:
   using: composite
   steps:
@@ -68,6 +64,6 @@ runs:
         GITHUB_EVENT_PATH: ${{ github.event_path }}
         GITHUB_EVENT_NUMBER: ${{ github.event_number }}
         GITHUB_REF_NAME: ${{ github.ref_name }}
-        PUBLISH_PACKAGES: ${{ inputs.publish-packages }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
         NPM_TOKEN: ${{ inputs.npm-token }}
+        NPM_CONFIG_TOKEN: ${{ inputs.npm-token }}

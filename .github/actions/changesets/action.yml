@@ -15,7 +15,7 @@ inputs:
   publish-command:
     description: Command to run for publishing
     required: false
-    default: 'bun run release'
+    default: 'bun run publish'
   version-command:
     description: Command to run for versioning
     required: false

@@ -19,7 +19,7 @@
     "@biomejs/biome": "2.2.6",
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.7",
-    "lefthook": "^1.13.1",
+    "lefthook": "^2.0.0",
     "turbo": "^2.5.6"
   },
   "packageManager": "bun@1.2.22"

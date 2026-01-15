@@ -20,7 +20,7 @@ inputs:
   enable-turbo-cache:
     description: Enable Turbo caching for the repository
     required: false
-    default: 'false'
+    default: 'true'
 runs:
   using: composite
   steps:

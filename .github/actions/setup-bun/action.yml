@@ -40,4 +40,4 @@ runs:
         if [ -n "${{ inputs.working-directory }}" ]; then
           cd "${{ inputs.working-directory }}"
         fi
-        bun install
+        bun install --frozen-lockfile

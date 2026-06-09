@@ -30,7 +30,7 @@ runs:
         bun-version: ${{ inputs.bun-version }}
     - name: Cache for Turbo
       if: inputs.enable-turbo-cache == 'true'
-      uses: rharkor/caching-for-turbo@v2.2.1
+      uses: rharkor/caching-for-turbo@v2.4.2
       with:
         cache-prefix: turbo-
     - name: Install dependencies

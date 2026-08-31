@@ -18,6 +18,8 @@ jobs:
         uses: actions/checkout@v5
       - name: Setup Bun
         uses: ./.github/actions/setup-bun
+      - name: Set up caching
+        uses: namespace-actions/setup-turbocache@v0
       - name: Check
         run: bun run check
       - name: Format
